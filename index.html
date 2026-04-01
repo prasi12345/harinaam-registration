@@ -2,66 +2,79 @@
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>गृहे गृहे हरिनाम</title>
-
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
-<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-  
 
 <style>
 
 body {
   margin:0;
-  padding:14px;
   font-family:'Georgia', serif;
   background:#f7f1df;
 }
 
-/* 🌟 Outer Golden Card */
-.container {
-  max-width:520px;
-  margin:auto;
-  border-radius:22px;
-  padding:12px;
+/* 🌟 Hero Section */
+.hero {
+  background: url('https://images.unsplash.com/photo-1545167622-3a6ac756afa4') center/cover;
+  height:240px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:white;
+  text-align:center;
+}
+
+.hero h1 {
+  background: rgba(0,0,0,0.4);
+  padding:12px 18px;
+  border-radius:12px;
+  font-size:22px;
+}
+
+/* Golden Section */
+.section {
+  margin:14px;
+  padding:16px;
+  border-radius:18px;
   background: linear-gradient(270deg,#fff9e6,#fceabb,#f9e3a3,#fff9e6);
   background-size:600% 600%;
-  animation: gradientFlow 18s ease infinite;
-  box-shadow:0 10px 30px rgba(181,140,40,0.25);
+  animation: flow 18s infinite;
+  box-shadow:0 6px 20px rgba(200,160,60,0.2);
+}
+
+@keyframes flow {
+  0%{background-position:0% 50%;}
+  50%{background-position:100% 50%;}
+  100%{background-position:0% 50%;}
 }
 
 /* Inner Card */
 .inner {
   background: rgba(255,255,255,0.85);
-  border-radius:18px;
-  padding:18px;
-  backdrop-filter: blur(6px);
+  padding:14px;
+  border-radius:14px;
 }
 
-/* Animation */
-@keyframes gradientFlow {
-  0% {background-position:0% 50%;}
-  50% {background-position:100% 50%;}
-  100% {background-position:0% 50%;}
-}
-
-/* Heading */
-h1 {
+/* Button */
+.btn {
+  display:block;
   text-align:center;
-  color:#8b6b1f;
-  font-size:22px;
-  margin:6px 0;
+  padding:12px;
+  margin-top:12px;
+  border-radius:12px;
+  background: linear-gradient(90deg,#b88a2f,#e3c35c,#b88a2f);
+  color:white;
+  font-weight:bold;
+  text-decoration:none;
 }
 
 /* Mantra */
 .mantra {
   text-align:center;
   font-size:20px;
-  color:#6b4d16;
   line-height:1.8;
-  margin:10px 0 16px;
   font-weight:bold;
-  animation: glow 3s ease-in-out infinite;
+  color:#6b4d16;
+  animation: glow 3s infinite;
 }
 
 @keyframes glow {
@@ -70,66 +83,12 @@ h1 {
   100% {text-shadow:0 0 3px rgba(212,175,55,0.3);}
 }
 
-/* Labels */
-label {
-  display:block;
-  margin-top:12px;
-  margin-bottom:4px;
-  font-size:13px;
-  color:#6a5322;
-  font-weight:bold;
-}
-
-/* Inputs */
-input, textarea, select {
+/* iframe */
+iframe {
   width:100%;
-  padding:12px;
-  border-radius:12px;
-  border:1px solid #dbc98a;
-  background:#fffdf7;
-  font-size:14px;
-  font-family:inherit;
-}
-
-textarea {
-  min-height:70px;
-}
-
-/* Button */
-button {
-  width:100%;
-  margin-top:18px;
-  padding:14px;
   border:none;
-  border-radius:14px;
-  background: linear-gradient(90deg,#b88a2f,#e3c35c,#b88a2f);
-  color:white;
-  font-size:16px;
-  font-weight:bold;
-  cursor:pointer;
-  box-shadow:0 5px 14px rgba(184,138,47,0.35);
-  transition:0.3s;
-}
-
-button:hover {
-  transform:scale(1.02);
-}
-
-/* Success Message */
-.success {
-  display:none;
-  text-align:center;
-  margin-top:14px;
-  padding:10px;
-  border-radius:10px;
-  background:#edf7e7;
-  color:#2d5c1d;
-  font-weight:bold;
-}
-
-/* Loading */
-.loading {
-  opacity:0.7;
+  border-radius:12px;
+  min-height:900px;
 }
 
 </style>
@@ -137,111 +96,58 @@ button:hover {
 
 <body>
 
-<div class="container">
-<div class="inner">
-
-<h1>🌸 गृहे गृहे हरिनाम 🌸</h1>
-
-<div class="mantra">
-हरे कृष्ण हरे कृष्ण कृष्ण कृष्ण हरे हर |<br>
-हरे राम हरे राम राम राम हरे हरे |
+<!-- 🌄 HERO -->
+<div class="hero">
+  <h1>🌸 गृहे गृहे हरिनाम 🌸<br>House Harinaam Sankirtan</h1>
 </div>
 
-<form id="form">
+<!-- 📜 INTRO -->
+<div class="section">
+  <div class="inner">
+    <p>
+      Sri Sri Radhakunjbihari Kirtan Team is happy to announce 
+      <b>House Harinaam Sankirtan Program</b>.
+      The kirtan team will visit devotees’ homes to perform Harinaam Sankirtan.
+    </p>
 
-<label>Full Name</label>
-<input type="text" id="name" required>
-
-<label>Phone Number</label>
-<input type="tel" id="phone" required>
-
-<label>Complete Address</label>
-<textarea id="address" required></textarea>
-
-<label>Select Preferred Date</label>
-<input type="text" id="date" required>
-
-<label>Time Slot</label>
-<select id="slot">
-<option>6:00 PM - 8:00 PM</option>
-</select>
-
-<label>Number of Participants</label>
-<input type="number" id="count" min="1">
-
-<label>Additional Notes</label>
-<textarea id="notes"></textarea>
-
-<button type="submit" id="submitBtn">Submit Registration</button>
-
-<div class="success" id="successMsg">
-🙏 Your registration has been submitted successfully
+    <a class="btn" href="#form">Register Now</a>
+  </div>
 </div>
 
-</form>
-
+<!-- 🪔 MANTRA -->
+<div class="section">
+  <div class="inner mantra">
+    हरे कृष्ण हरे कृष्ण कृष्ण कृष्ण हरे हर |<br>
+    हरे राम हरे राम राम राम हरे हरे |
+  </div>
 </div>
+
+<!-- 📋 FORM -->
+<div class="section" id="form">
+  <div class="inner">
+    <h3 style="text-align:center; color:#8b6b1f;">Registration Form</h3>
+
+    <!-- 🔥 PASTE YOUR GOOGLE FORM EMBED HERE -->
+    <iframe src="<iframe src="https://docs.google.com/forms/d/e/1FAIpQLSeqWr3x8D8gyhs7OyPbNZ6BMnQSi9P24A6XA9m4iPIxHKjOgA/viewform?embedded=true" width="640" height="3632" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>"></iframe>
+
+  </div>
 </div>
 
-<script>
+<!-- 📞 AUTHORITY -->
+<div class="section">
+  <div class="inner" style="text-align:center;">
 
-const scriptURL = "https://script.google.com/macros/s/AKfycbyhaaB2EIaml-nleg9SyI-CKJGrryaTpDyYJWh2zJ33YIQQ0PGOuyk3H96g6xqmWFV33w/exec";
+    <b>Slot Approvals</b><br>
+    Pranav Gopal Dās<br>
+    📞 +91 9860070731
 
-// 📅 Load disabled dates
-fetch(scriptURL)
-.then(res => res.json())
-.then(data => {
- flatpickr("#date", {
-  dateFormat: "Y-m-d",
-  minDate: "today",
-  disable: data.map(d => d.trim())
-});
-  });
-})
-.catch(() => {
-  flatpickr("#date", { minDate: "today" });
-});
+    <br><br>
 
+    <b>Disputes / Complaints</b><br>
+    Balaram Hari Dās
 
-// 🚀 Premium submit experience
-document.getElementById("form").addEventListener("submit", function(e){
-  e.preventDefault();
-
-  const btn = document.getElementById("submitBtn");
-
-  btn.innerText = "Submitting...";
-  btn.disabled = true;
-  btn.classList.add("loading");
-
-  const payload = {
-    name: name.value,
-    phone: phone.value,
-    address: address.value,
-    date: date.value,
-    slot: slot.value,
-    count: count.value,
-    notes: notes.value
-  };
-
-  fetch(scriptURL, {
-    method: "POST",
-    mode: "no-cors",
-    body: JSON.stringify(payload)
-  });
-
-  // Instant success UX
-  document.getElementById("successMsg").style.display = "block";
-
-  document.getElementById("form").reset();
-
-  setTimeout(() => {
-    btn.innerText = "Submit Registration";
-    btn.disabled = false;
-    btn.classList.remove("loading");
-  }, 2000);
-});
-
-</script>
+  </div>
+</div>
 
 </body>
 </html>
