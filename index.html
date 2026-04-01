@@ -3,95 +3,242 @@
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Harinaam Registration</title>
+<title>गृहे गृहे हरिनाम</title>
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 
 <style>
-body { font-family: Georgia; padding:20px; }
 
+body {
+  margin:0;
+  padding:14px;
+  font-family:'Georgia', serif;
+  background:#f7f1df;
+}
+
+/* 🌟 Outer Golden Card */
+.container {
+  max-width:520px;
+  margin:auto;
+  border-radius:22px;
+  padding:12px;
+  background: linear-gradient(270deg,#fff9e6,#fceabb,#f9e3a3,#fff9e6);
+  background-size:600% 600%;
+  animation: gradientFlow 18s ease infinite;
+  box-shadow:0 10px 30px rgba(181,140,40,0.25);
+}
+
+/* Inner Card */
+.inner {
+  background: rgba(255,255,255,0.85);
+  border-radius:18px;
+  padding:18px;
+  backdrop-filter: blur(6px);
+}
+
+/* Animation */
+@keyframes gradientFlow {
+  0% {background-position:0% 50%;}
+  50% {background-position:100% 50%;}
+  100% {background-position:0% 50%;}
+}
+
+/* Heading */
+h1 {
+  text-align:center;
+  color:#8b6b1f;
+  font-size:22px;
+  margin:6px 0;
+}
+
+/* Mantra */
+.mantra {
+  text-align:center;
+  font-size:20px;
+  color:#6b4d16;
+  line-height:1.8;
+  margin:10px 0 16px;
+  font-weight:bold;
+  animation: glow 3s ease-in-out infinite;
+}
+
+@keyframes glow {
+  0% {text-shadow:0 0 3px rgba(212,175,55,0.3);}
+  50% {text-shadow:0 0 10px rgba(212,175,55,0.6);}
+  100% {text-shadow:0 0 3px rgba(212,175,55,0.3);}
+}
+
+/* Labels */
+label {
+  display:block;
+  margin-top:12px;
+  margin-bottom:4px;
+  font-size:13px;
+  color:#6a5322;
+  font-weight:bold;
+}
+
+/* Inputs */
 input, textarea, select {
   width:100%;
-  padding:10px;
-  margin:8px 0;
+  padding:12px;
+  border-radius:12px;
+  border:1px solid #dbc98a;
+  background:#fffdf7;
+  font-size:14px;
+  font-family:inherit;
 }
 
+textarea {
+  min-height:70px;
+}
+
+/* Button */
 button {
   width:100%;
-  padding:12px;
-  background:gold;
+  margin-top:18px;
+  padding:14px;
+  border:none;
+  border-radius:14px;
+  background: linear-gradient(90deg,#b88a2f,#e3c35c,#b88a2f);
+  color:white;
+  font-size:16px;
+  font-weight:bold;
+  cursor:pointer;
+  box-shadow:0 5px 14px rgba(184,138,47,0.35);
+  transition:0.3s;
 }
+
+button:hover {
+  transform:scale(1.02);
+}
+
+/* Success Message */
+.success {
+  display:none;
+  text-align:center;
+  margin-top:14px;
+  padding:10px;
+  border-radius:10px;
+  background:#edf7e7;
+  color:#2d5c1d;
+  font-weight:bold;
+}
+
+/* Loading */
+.loading {
+  opacity:0.7;
+}
+
 </style>
 </head>
 
 <body>
 
-<h2>Harinaam Registration</h2>
+<div class="container">
+<div class="inner">
+
+<h1>🌸 गृहे गृहे हरिनाम 🌸</h1>
+
+<div class="mantra">
+हरे कृष्ण हरे कृष्ण कृष्ण कृष्ण हरे हर |<br>
+हरे राम हरे राम राम राम हरे हरे |
+</div>
 
 <form id="form">
 
-<input type="text" id="name" placeholder="Name" required>
-<input type="tel" id="phone" placeholder="Phone" required>
-<textarea id="address" placeholder="Address"></textarea>
+<label>Full Name</label>
+<input type="text" id="name" required>
 
-<input type="text" id="date" placeholder="Select Date">
+<label>Phone Number</label>
+<input type="tel" id="phone" required>
 
+<label>Complete Address</label>
+<textarea id="address" required></textarea>
+
+<label>Select Preferred Date</label>
+<input type="text" id="date" required>
+
+<label>Time Slot</label>
 <select id="slot">
-<option>6 PM - 8 PM</option>
+<option>6:00 PM - 8:00 PM</option>
 </select>
 
-<input type="number" id="count" placeholder="Participants">
+<label>Number of Participants</label>
+<input type="number" id="count" min="1">
 
-<textarea id="notes" placeholder="Notes"></textarea>
+<label>Additional Notes</label>
+<textarea id="notes"></textarea>
 
-<button>Submit</button>
+<button type="submit" id="submitBtn">Submit Registration</button>
+
+<div class="success" id="successMsg">
+🙏 Your registration has been submitted successfully
+</div>
 
 </form>
 
+</div>
+</div>
 
-  
 <script>
-const scriptURL = "https://script.google.com/macros/s/AKfycbxCirKZ5GH5BoslmNJUAwd4y7Be-OrNyE7c8r6vEcI9kIFgRRq_kR75UYbJ5h-h8uyocg/exec";
+
+const scriptURL = "PASTE_YOUR_SCRIPT_URL_HERE";
+
+// 📅 Load disabled dates
+fetch(scriptURL)
+.then(res => res.json())
+.then(data => {
+  flatpickr("#date", {
+    dateFormat: "Y-m-d",
+    minDate: "today",
+    disable: data
+  });
+})
+.catch(() => {
+  flatpickr("#date", { minDate: "today" });
+});
+
+
+// 🚀 Premium submit experience
 document.getElementById("form").addEventListener("submit", function(e){
   e.preventDefault();
 
-  const btn = document.querySelector("button");
+  const btn = document.getElementById("submitBtn");
 
-  // 🔥 UX IMPROVEMENT START
   btn.innerText = "Submitting...";
   btn.disabled = true;
+  btn.classList.add("loading");
 
   const payload = {
-    name: document.getElementById("name").value,
-    phone: document.getElementById("phone").value,
-    address: document.getElementById("address").value,
-    date: document.getElementById("date").value,
-    slot: document.getElementById("slot").value,
-    count: document.getElementById("count").value,
-    notes: document.getElementById("notes").value
+    name: name.value,
+    phone: phone.value,
+    address: address.value,
+    date: date.value,
+    slot: slot.value,
+    count: count.value,
+    notes: notes.value
   };
 
-  // 🚀 Fire and forget (no waiting)
   fetch(scriptURL, {
     method: "POST",
     mode: "no-cors",
     body: JSON.stringify(payload)
   });
 
-  // ✅ INSTANT SUCCESS MESSAGE
-  alert("🙏 Registration Submitted Successfully!");
+  // Instant success UX
+  document.getElementById("successMsg").style.display = "block";
 
-  // Reset form
   document.getElementById("form").reset();
 
-  // Restore button after 2 sec
   setTimeout(() => {
-    btn.innerText = "Submit";
+    btn.innerText = "Submit Registration";
     btn.disabled = false;
+    btn.classList.remove("loading");
   }, 2000);
-
 });
+
 </script>
 
 </body>
