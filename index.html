@@ -49,53 +49,48 @@ button {
 
 </form>
 
-<script>
 
-const scriptURL = "https://script.google.com/macros/s/AKfycbxCirKZ5GH5BoslmNJUAwd4y7Be-OrNyE7c8r6vEcI9kIFgRRq_kR75UYbJ5h-h8uyocg/exec";
-fetch(scriptURL)
-  .then(res => res.json())
-  .then(data => {
-    flatpickr("#date", {
-      dateFormat: "Y-m-d",
-      disable: data
-    });
-  })
-  .catch(err => console.error("GET ERROR:", err));
   
-fetch(scriptURL)
-.then(res => res.json())
-.then(dates => {
-  flatpickr("#date", {
-    dateFormat: "Y-m-d",
-    disable: dates
-  });
-});
-
-document.getElementById("form").addEventListener("submit", async function(e){
+<script>
+const scriptURL = "https://script.google.com/macros/s/AKfycbxCirKZ5GH5BoslmNJUAwd4y7Be-OrNyE7c8r6vEcI9kIFgRRq_kR75UYbJ5h-h8uyocg/exec";
+document.getElementById("form").addEventListener("submit", function(e){
   e.preventDefault();
 
+  const btn = document.querySelector("button");
+
+  // 🔥 UX IMPROVEMENT START
+  btn.innerText = "Submitting...";
+  btn.disabled = true;
+
   const payload = {
-    name: name.value,
-    phone: phone.value,
-    address: address.value,
-    date: date.value,
-    slot: slot.value,
-    count: count.value,
-    notes: notes.value
+    name: document.getElementById("name").value,
+    phone: document.getElementById("phone").value,
+    address: document.getElementById("address").value,
+    date: document.getElementById("date").value,
+    slot: document.getElementById("slot").value,
+    count: document.getElementById("count").value,
+    notes: document.getElementById("notes").value
   };
 
-  try {
-    await fetch(scriptURL, {
-      method: "POST",
-      mode: "no-cors",   // 🔥 IMPORTANT FIX
-      body: JSON.stringify(payload)
-    });
+  // 🚀 Fire and forget (no waiting)
+  fetch(scriptURL, {
+    method: "POST",
+    mode: "no-cors",
+    body: JSON.stringify(payload)
+  });
 
-    alert("🙏 Submitted successfully!");
-  } catch (err) {
-    console.error("POST ERROR:", err);
-    alert("Submission failed");
-  }
+  // ✅ INSTANT SUCCESS MESSAGE
+  alert("🙏 Registration Submitted Successfully!");
+
+  // Reset form
+  document.getElementById("form").reset();
+
+  // Restore button after 2 sec
+  setTimeout(() => {
+    btn.innerText = "Submit";
+    btn.disabled = false;
+  }, 2000);
+
 });
 </script>
 
