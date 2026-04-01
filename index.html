@@ -51,8 +51,17 @@ button {
 
 <script>
 
-const scriptURL = "https://script.google.com/macros/s/AKfycbz1nx5hqI7jsSjnszcP8hu38YL2Z4YxHcgJ1V-kkC-VBo7JxpoxUA1Y_Njs9dhO5J2fEQ/exec";
-
+const scriptURL = "https://script.google.com/macros/s/AKfycbxCirKZ5GH5BoslmNJUAwd4y7Be-OrNyE7c8r6vEcI9kIFgRRq_kR75UYbJ5h-h8uyocg/exec";
+fetch(scriptURL)
+  .then(res => res.json())
+  .then(data => {
+    flatpickr("#date", {
+      dateFormat: "Y-m-d",
+      disable: data
+    });
+  })
+  .catch(err => console.error("GET ERROR:", err));
+  
 fetch(scriptURL)
 .then(res => res.json())
 .then(dates => {
@@ -62,10 +71,10 @@ fetch(scriptURL)
   });
 });
 
-document.getElementById("form").addEventListener("submit", async (e) => {
+document.getElementById("form").addEventListener("submit", async function(e){
   e.preventDefault();
 
-  const data = {
+  const payload = {
     name: name.value,
     phone: phone.value,
     address: address.value,
@@ -75,14 +84,19 @@ document.getElementById("form").addEventListener("submit", async (e) => {
     notes: notes.value
   };
 
-  await fetch(scriptURL, {
-    method: "POST",
-    body: JSON.stringify(data)
-  });
+  try {
+    await fetch(scriptURL, {
+      method: "POST",
+      mode: "no-cors",   // 🔥 IMPORTANT FIX
+      body: JSON.stringify(payload)
+    });
 
-  alert("Submitted!");
+    alert("🙏 Submitted successfully!");
+  } catch (err) {
+    console.error("POST ERROR:", err);
+    alert("Submission failed");
+  }
 });
-
 </script>
 
 </body>
